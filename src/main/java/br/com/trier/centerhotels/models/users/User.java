@@ -7,13 +7,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
-@Entity(name="user")
+@Entity(name="user_parent")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 	@Setter
@@ -25,14 +26,26 @@ public class User {
 	@Column (name = "name")
 	private String name;
 	
-	@Column (name = "cep")
-	private Integer cep;
-	
-	@Column (name = "user")
+	@Column (name = "email")
+	@Email
 	@NotNull
 	@NotBlank
-	private String user;
+	private String email;
+	
+	@Column (name = "cep")
+	@NotNull
+	private Integer cep;
+	
+	@Column (name = "phone")
+	private Integer phone;
+	
+	@Column (name = "tb_user")
+	@NotNull
+	@NotBlank
+	private String tb_user;
 	
 	@Column (name = "password")
+	@NotNull
+	@NotBlank
 	private String password;
 }
