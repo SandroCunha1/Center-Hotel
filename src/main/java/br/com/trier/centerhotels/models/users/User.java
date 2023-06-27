@@ -11,12 +11,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="user_parent")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
+	
 	@Setter
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +47,7 @@ public class User {
 	@Column (name = "tb_user")
 	@NotNull
 	@NotBlank
-	private String tb_user;
+	private String user;
 	
 	@Column (name = "password")
 	@NotNull
