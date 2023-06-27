@@ -29,5 +29,5 @@ public class RoomType {
 	private Integer qt;
 	
 	@Column (name = "daily")
-	private Float daliy;
+	private Float daily;
 }
