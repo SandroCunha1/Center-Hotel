@@ -9,8 +9,8 @@ import br.com.trier.centerhotels.models.users.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	List<Customer> findByUserStartsWithIgnoreCase(String user);
 	List<Customer> findByNameStartsWithIgnoreCase(String name);
-	List<Customer> findByCpfStartsWith(Integer cpf);
-	List<Customer> findByCepStartsWith(Integer cep);
+	List<Customer> findByCpf(String cpf);
+	List<Customer> findByCep(Integer cep);
 	List<Customer> findByEmailStartsWithIgnoreCase(String email);
-	List<Customer> findByCpfStartsWithAndNameStartsWithIgnoreCase(Integer cpf, String name);
+	List<Customer> findByCepAndNameStartsWithIgnoreCase(Integer cpf, String name);
 }

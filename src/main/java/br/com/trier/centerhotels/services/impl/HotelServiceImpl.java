@@ -1,5 +1,7 @@
 package br.com.trier.centerhotels.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -23,4 +25,46 @@ public class HotelServiceImpl extends BaseServiceImpl<Hotel, Integer> implements
     protected Integer getEntityId(Hotel entity) {
         return entity.getId();
     }
+
+	@Override
+	public List<Hotel> findByUserStartsWithIgnoreCase(String user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Hotel> findByNameStartsWithIgnoreCase(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Hotel> findByCnpjStartsWith(Integer cnpj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Hotel> findByCepStartsWith(Integer cep) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Hotel> findByEmailStartsWithIgnoreCase(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Hotel> findByCnpjStartsWithAndNameStartsWithIgnoreCase(Integer cpf, String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Hotel> findByDescriptionContainingIgnoreCase(String descr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
