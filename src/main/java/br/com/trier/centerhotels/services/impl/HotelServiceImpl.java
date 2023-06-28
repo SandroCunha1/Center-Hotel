@@ -28,43 +28,50 @@ public class HotelServiceImpl extends BaseServiceImpl<Hotel, Integer> implements
 
 	@Override
 	public List<Hotel> findByUserStartsWithIgnoreCase(String user) {
-		// TODO Auto-generated method stub
-		return null;
+		return findByTemplate("findByUserStartsWithIgnoreCase",
+				"Nenhum hotel/usuário registrado com :",
+				user);
 	}
 
 	@Override
 	public List<Hotel> findByNameStartsWithIgnoreCase(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return findByTemplate("findByNameStartsWithIgnoreCase",
+				"Nenhum hotel/nome registrado com :",
+				name);
 	}
 
 	@Override
-	public List<Hotel> findByCnpjStartsWith(Integer cnpj) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Hotel> findByCnpjStartsWith(String cnpj) {
+		return findByTemplate("findByCnpjStartsWith",
+				"Nenhum hotel/Cnpj registrado com :",
+				cnpj);
 	}
 
 	@Override
-	public List<Hotel> findByCepStartsWith(Integer cep) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Hotel> findByCepStartsWith(String cep) {
+		return findByTemplate("findByCepStartsWith",
+				"Nenhum hotel/Cep registrado com :",
+				cep);
 	}
 
 	@Override
 	public List<Hotel> findByEmailStartsWithIgnoreCase(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		return findByTemplate("findByEmailStartsWithIgnoreCase",
+				"Nenhum hotel/Email registrado com :",
+				email);
 	}
 
 	@Override
-	public List<Hotel> findByCnpjStartsWithAndNameStartsWithIgnoreCase(Integer cpf, String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Hotel> findByCnpjStartsWithAndNameStartsWithIgnoreCase(String cnpj, String name) {
+		return findByTemplateTwo("findByCnpjStartsWithAndNameStartsWithIgnoreCase",
+				"Nenhum hotel/cnpj e hotel/nome registrado com :",
+				cnpj, name);
 	}
 
 	@Override
 	public List<Hotel> findByDescriptionContainingIgnoreCase(String descr) {
-		// TODO Auto-generated method stub
-		return null;
+		return findByTemplate("findByDescriptionContainingIgnoreCase",
+				"Nenhuma descrição contendo :",
+				descr);
 	}
 }

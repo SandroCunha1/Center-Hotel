@@ -10,7 +10,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	List<Customer> findByUserStartsWithIgnoreCase(String user);
 	List<Customer> findByNameStartsWithIgnoreCase(String name);
 	List<Customer> findByCpf(String cpf);
-	List<Customer> findByCep(Integer cep);
+	List<Customer> findByCep(String cep);
 	List<Customer> findByEmailStartsWithIgnoreCase(String email);
-	List<Customer> findByCepAndNameStartsWithIgnoreCase(Integer cpf, String name);
+	List<Customer> findByCepAndNameStartsWithIgnoreCase(String cep, String name);
 }

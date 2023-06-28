@@ -12,6 +12,6 @@ public interface HotelRoomRepository extends JpaRepository<HotelRoom, Integer> {
 
 	List<HotelRoom> findByHotel(Hotel hotel);
 	List<HotelRoom> findByType(RoomType type);
-	List<HotelRoom> findByNum(RoomType type);
+	List<HotelRoom> findByHotelAndNum(Hotel hotel, Integer num);
 	List<HotelRoom> findByHotelAndType(Hotel hotel, RoomType type);
 }

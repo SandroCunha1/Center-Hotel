@@ -1,5 +1,9 @@
 package br.com.trier.centerhotels.models.users;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import br.com.trier.centerhotels.models.dto.EmployeeDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -8,10 +12,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @Entity (name = "employee")
 @NoArgsConstructor
+@ToString
 public class Employee extends User {
 
 	@Column (name = "cpf")
@@ -22,11 +28,20 @@ public class Employee extends User {
 	@ManyToOne
 	@NotNull
 	@JoinColumn(name = "hotel_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Hotel hotel;
 	
-	public Employee(Integer id, String name, String email, Integer cep, Integer phone, String user, String password, String cpf, Hotel hotel) {
+	public Employee(Integer id, String name, String email, String cep, Integer phone, String user, String password, String cpf, Hotel hotel) {
 		super(id, name, email, cep, phone, user, password);
 		this.cpf = cpf;
 		this.hotel = hotel;
+	}
+	
+	public Employee(EmployeeDTO dto, Hotel hotel) {
+		this(dto.getId(), dto.getName(), dto.getEmail(), dto.getCep(), dto.getPhone(), dto.getUser(), dto.getPassword(), dto.getCpf(), hotel);
+	}
+	
+	public EmployeeDTO toDTO() {
+		return new EmployeeDTO(getId(), getCep(), getName(), getEmail(), getUser(), getPassword(), getPhone(), getCpf(), getHotel().getId(), getHotel().getName(), getHotel().getCnpj());
 	}
 }

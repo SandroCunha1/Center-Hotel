@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import br.com.trier.centerhotels.services.impl.BaseServiceImpl;
 
-public abstract class BaseResource<T, ID, S extends BaseServiceImpl<T, ID>> {
+public abstract class BaseResource<T, ID,D ,  S extends BaseServiceImpl<T, ID>> {
 
     protected final S service;
 
@@ -21,24 +20,26 @@ public abstract class BaseResource<T, ID, S extends BaseServiceImpl<T, ID>> {
     }
 
     @PostMapping
-    public ResponseEntity<T> insert(@RequestBody T entity) {
-        return ResponseEntity.ok(service.insert(entity));
+    public ResponseEntity<D> insert(@RequestBody D entityDTO) {
+    	T entity = convertDtoToEntity(entityDTO);
+        return ResponseEntity.ok(convertEntityToDto(service.insert(entity)));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<T> findById(@PathVariable ID id) {
-        return ResponseEntity.ok(service.findById(id));
+    public ResponseEntity<D> findById(@PathVariable ID id) {
+        return ResponseEntity.ok(convertEntityToDto(service.findById(id)));
     }
 
     @GetMapping
-    public ResponseEntity<List<T>> listAll() {
-        return ResponseEntity.ok(service.listAll());
+    public ResponseEntity<List<D>> listAll() {
+        return ResponseEntity.ok(convertListToDto(service.listAll()));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<T> update(@PathVariable ID id, @RequestBody T entity) {
+    public ResponseEntity<D> update(@PathVariable ID id, @RequestBody D entityDTO) {
+    	T entity = convertDtoToEntity(entityDTO);
         setEntityId(entity, id);
-        return ResponseEntity.ok(service.update(entity));
+        return ResponseEntity.ok(convertEntityToDto(service.update(entity)));
     }
 
     @DeleteMapping("/{id}")
@@ -46,6 +47,15 @@ public abstract class BaseResource<T, ID, S extends BaseServiceImpl<T, ID>> {
         service.delete(id);
         return ResponseEntity.ok().build();
     }
+    
+    protected List<D> convertListToDto(List<T> list ){
+    	return list.stream().map(entity -> convertEntityToDto(entity)).toList();
+    }
 
     protected abstract void setEntityId(T entity, ID id);
+    
+    protected abstract T convertDtoToEntity(D dto);
+
+    protected abstract D convertEntityToDto(T entity);
+
 }

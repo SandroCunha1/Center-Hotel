@@ -31,25 +31,29 @@ public class HotelRoomServiceImpl extends BaseServiceImpl<HotelRoom, Integer> im
 
 	@Override
 	public List<HotelRoom> findByHotel(Hotel hotel) {
-		// TODO Auto-generated method stub
-		return null;
+		return findByTemplate("findByHotel",
+				"Nenhum quarto registrado em :",
+				hotel);
 	}
 
 	@Override
 	public List<HotelRoom> findByType(RoomType type) {
-		// TODO Auto-generated method stub
-		return null;
+		return findByTemplate("findByType",
+				"Nenhum quarto registrado com tipo :",
+				type);
 	}
 
 	@Override
-	public List<HotelRoom> findByNum(RoomType type) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<HotelRoom> findByHotelAndNum(Hotel hotel, Integer num) {
+		return findByTemplateTwo("findByHotelAndNum",
+				"Nenhum nenhum quarto registrado com hotel e número igual á",
+				hotel, num);
 	}
 
 	@Override
 	public List<HotelRoom> findByHotelAndType(Hotel hotel, RoomType type) {
-		// TODO Auto-generated method stub
-		return null;
+		return findByTemplateTwo("findByHotelAndType",
+				"Nenhum nenhum quarto registrado com hotel e tipo igual á",
+				hotel, type);
 	}
 }

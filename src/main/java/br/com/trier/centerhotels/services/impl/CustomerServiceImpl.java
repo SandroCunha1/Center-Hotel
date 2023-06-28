@@ -34,32 +34,45 @@ public class CustomerServiceImpl extends BaseServiceImpl<Customer, Integer> impl
 
 	@Override
 	public List<Customer> findByUserStartsWithIgnoreCase(String user) {
-		return findByTemplate("findByUserStartsWithIgnoreCase", "Nenhum cliente/usuário começa com:", user);
+		return findByTemplate("findByUserStartsWithIgnoreCase",
+				"Nenhum cliente/usuário começa com:",
+				user);
 	}
 
 	@Override
 	public List<Customer> findByNameStartsWithIgnoreCase(String name) {
-		return findByTemplate("findByNameStartsWithIgnoreCase", "Nenhum cliente/nome encontrado com:", name);
+		return findByTemplate("findByNameStartsWithIgnoreCase",
+				"Nenhum cliente/nome encontrado com:",
+				name);
 	}
 
 	@Override
 	public List<Customer> findByCpf(String cpf) {
-		return findByTemplate("findByCpf", "Nenhum cliente/cpf encontrado com:", cpf);
+		return findByTemplate("findByCpf",
+				"Nenhum cliente/cpf encontrado com:",
+				cpf);
 	}
 
 	@Override
-	public List<Customer> findByCep(Integer cep) {
-		return findByTemplate("findByCep", "Nenhum cliente/cep encontrado com:", cep);
+	public List<Customer> findByCep(String cep) {
+		return findByTemplate("findByCep",
+				"Nenhum cliente/cep encontrado com:",
+				cep);
 	}
 
 	@Override
 	public List<Customer> findByEmailStartsWithIgnoreCase(String email) {
-		return findByTemplate("findByEmailStartsWithIgnoreCase", "Nenhum cliente/email encontrado com:", email);
+		return findByTemplate("findByEmailStartsWithIgnoreCase",
+				"Nenhum cliente/email encontrado com:",
+				email);
 	}
 
 	@Override
-	public List<Customer> findByCepAndNameStartsWithIgnoreCase(Integer cep, String name) {
-		return findByTemplateTwo("findByCepAndNameStartsWithIgnoreCase", "Nenhum cliente/cep e cliente/name encontrado com:", cep, name);
+	public List<Customer> findByCepAndNameStartsWithIgnoreCase(String cep, String name) {
+		return findByTemplateTwo("findByCepAndNameStartsWithIgnoreCase",
+				"Nenhum cliente/cep e cliente/name encontrado com:",
+				cep,
+				name);
 	}
 
 	@Override

@@ -2,6 +2,9 @@ package br.com.trier.centerhotels.models;
 
 import java.time.ZonedDateTime;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import br.com.trier.centerhotels.models.users.Customer;
 import br.com.trier.centerhotels.models.users.Employee;
 import jakarta.persistence.Column;
@@ -16,10 +19,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity(name="reservation")
 public class Reservation {
 
@@ -48,6 +53,7 @@ public class Reservation {
 	@ManyToOne
 	@NotNull
 	@JoinColumn(name = "room_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private HotelRoom room;
 	
 	@ManyToOne

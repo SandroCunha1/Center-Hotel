@@ -39,7 +39,7 @@ public class User {
 	
 	@Column (name = "cep")
 	@NotNull
-	private Integer cep;
+	private String cep;
 	
 	@Column (name = "phone")
 	private Integer phone;

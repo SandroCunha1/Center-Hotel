@@ -9,6 +9,6 @@ import br.com.trier.centerhotels.models.users.Hotel;
 public interface HotelRoomService extends BaseCrudService<HotelRoom> {
 	List<HotelRoom> findByHotel(Hotel hotel);
 	List<HotelRoom> findByType(RoomType type);
-	List<HotelRoom> findByNum(RoomType type);
+	List<HotelRoom> findByHotelAndNum(Hotel hotel, Integer num);
 	List<HotelRoom> findByHotelAndType(Hotel hotel, RoomType type);
 }

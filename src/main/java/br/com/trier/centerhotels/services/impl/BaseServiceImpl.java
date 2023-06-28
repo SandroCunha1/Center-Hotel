@@ -31,7 +31,7 @@ public abstract class BaseServiceImpl<T, ID> {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "hiding" })
 	protected <T> List<T> findByTemplate(String attribute, String errorMsg, Object value) {
 		try {
 			Method method = getRepository().getClass().getMethod(attribute, value.getClass());
@@ -46,10 +46,10 @@ public abstract class BaseServiceImpl<T, ID> {
 		throw new ObjectNotFound("%s %s".formatted(errorMsg, value));
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "hiding" })
 	protected <T> List<T> findByTemplateTwo(String attribute, String errorMsg, Object value, Object value2) {
 		try {
-			Method method = getRepository().getClass().getMethod(attribute, value.getClass());
+			Method method = getRepository().getClass().getMethod(attribute, value.getClass(), value2.getClass());
 			List<T> resultList = (List<T>) method.invoke(getRepository(), value, value2);
 			if (resultList != null && !resultList.isEmpty()) {
 				return resultList;
