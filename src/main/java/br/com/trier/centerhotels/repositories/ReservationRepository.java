@@ -19,4 +19,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	List<Reservation> findByDateInitAndDateFin(ZonedDateTime dateInit, ZonedDateTime dateFin);
 	List<Reservation> findByDateInitBetween(ZonedDateTime date, ZonedDateTime date2);
 	List<Reservation> findByDateFinBetween(ZonedDateTime date, ZonedDateTime date2);
+	List<Reservation> findByDateInitLessThanEqualAndDateFinGreaterThanEqual(ZonedDateTime date, ZonedDateTime date2);
+	
 }

@@ -40,7 +40,7 @@ public abstract class BaseServiceImpl<T, ID> {
 				return resultList;
 			}
 		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-			throw new IllegalArgumentException("Atributo inválido: " + attribute);
+			throw new IllegalArgumentException("Atributo inválido: " + attribute + e);
 		}
 
 		throw new ObjectNotFound("%s %s".formatted(errorMsg, value));

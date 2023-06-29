@@ -4,10 +4,6 @@ import java.time.ZonedDateTime;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import br.com.trier.centerhotels.models.dto.ReservationAbstractDTO;
-import br.com.trier.centerhotels.models.dto.ReservationByCustomerDTO;
-import br.com.trier.centerhotels.models.dto.ReservationByEmployeeDTO;
 import br.com.trier.centerhotels.models.dto.ReservationDTO;
 import br.com.trier.centerhotels.models.users.Customer;
 import br.com.trier.centerhotels.models.users.Employee;
@@ -61,45 +57,55 @@ public class Reservation {
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
 
-	public Reservation(ReservationAbstractDTO dto, HotelRoom room, Employee employee, Customer customer) {
+	public Reservation(ReservationDTO dto, HotelRoom room, Employee employee, Customer customer) {
 		this.dateInit = DateUtils.dateBrToZoneDate(dto.getDateInit());
-		this.dateFin = DateUtils.dateBrToZoneDate(dto.getDateInit());
+		this.dateFin = DateUtils.dateBrToZoneDate(dto.getDateFin());
 		this.room = room;
 		this.customer = customer;
 		this.employee = employee;
 	}
 
-	public Reservation(ReservationAbstractDTO dto, HotelRoom room, Customer customer) {
+	public Reservation(ReservationDTO dto, Customer customer, @NotNull HotelRoom room) {
+		super();
 		this.dateInit = DateUtils.dateBrToZoneDate(dto.getDateInit());
-		this.dateFin = DateUtils.dateBrToZoneDate(dto.getDateInit());
-		this.room = room;
+		this.dateFin = DateUtils.dateBrToZoneDate(dto.getDateFin());
 		this.customer = customer;
-	}
-
-	public Reservation(ReservationAbstractDTO dto, HotelRoom room, Employee employee) {
-		this.dateInit = DateUtils.dateBrToZoneDate(dto.getDateInit());
-		this.dateFin = DateUtils.dateBrToZoneDate(dto.getDateInit());
 		this.room = room;
-		this.employee = employee;
 	}
 
-	public ReservationAbstractDTO toDto() {
-		if (getEmployee() == null) {
-			return new ReservationByCustomerDTO(getId(), getRoom().getId(), getRoom().getType().getDescription(),
-					getRoom().getType().getDaily(), DateUtils.zoneDateToBrDate(getDateInit()),
-					DateUtils.zoneDateToBrDate(getDateFin()), 
-					getCustomer().getId(), getCustomer().getName(), getCustomer().getUser(), getCustomer().getCpf());
-		}	
+	public Reservation(ReservationDTO dto, Employee employee, @NotNull HotelRoom room) {
+		super();
+		this.dateInit = DateUtils.dateBrToZoneDate(dto.getDateInit());
+		this.dateFin = DateUtils.dateBrToZoneDate(dto.getDateFin());
+		this.employee = employee;
+		this.room = room;
+	}
+	
+
+	public ReservationDTO toDto() {
+		
 		if (getCustomer() == null) {
-			return new ReservationByEmployeeDTO(getId(), getRoom().getId(), getRoom().getType().getDescription(),
+			return new ReservationDTO(getId(), getRoom().getId(), getRoom().getType().getDescription(),
 					getRoom().getType().getDaily(), DateUtils.zoneDateToBrDate(getDateInit()),
 					DateUtils.zoneDateToBrDate(getDateFin()),
-					getEmployee().getId() , getEmployee().getName(), getEmployee().getUser(), getEmployee().getCpf());
+					null, null, null, null,
+					getEmployee().getId(), getEmployee().getName(), getEmployee().getUser(), getEmployee().getCpf());
 		}
+
+		if (getEmployee() == null) {
+			return new ReservationDTO(getId(), getRoom().getId(), getRoom().getType().getDescription(),
+					getRoom().getType().getDaily(), DateUtils.zoneDateToBrDate(getDateInit()),
+					DateUtils.zoneDateToBrDate(getDateFin()), 
+					getCustomer().getId(), getCustomer().getName(), getCustomer().getUser(), getCustomer().getCpf(),
+					null, null, null, null);
+		}
+		
+
 		return new ReservationDTO(getId(), getRoom().getId(), getRoom().getType().getDescription(),
 				getRoom().getType().getDaily(), DateUtils.zoneDateToBrDate(getDateInit()),
 				DateUtils.zoneDateToBrDate(getDateFin()), 
-				getCustomer().getId(), getCustomer().getName(), getCustomer().getUser(), getCustomer().getCpf(),
-				getEmployee().getId() , getEmployee().getName(), getEmployee().getUser(), getEmployee().getCpf());
+				getCustomer().getId(), getCustomer().getName(), getCustomer().getUser(), getCustomer().getCpf(), 
+				getEmployee().getId(), getEmployee().getName(), getEmployee().getUser(), getEmployee().getCpf());
 	}
+
 }

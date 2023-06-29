@@ -31,6 +31,11 @@ public class CustomerServiceImpl extends BaseServiceImpl<Customer, Integer> impl
 		validateUser(customer);
 		return super.update(customer);
 	}
+	
+	@Override
+	protected Integer getEntityId(Customer entity) {
+		return entity.getId();
+	}
 
 	@Override
 	public List<Customer> findByUserStartsWithIgnoreCase(String user) {
@@ -75,9 +80,6 @@ public class CustomerServiceImpl extends BaseServiceImpl<Customer, Integer> impl
 				name);
 	}
 
-	@Override
-	protected Integer getEntityId(Customer entity) {
-		return entity.getId();
-	}
+	
 
 }

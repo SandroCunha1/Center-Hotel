@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -11,6 +12,7 @@ import lombok.ToString;
 @Getter
 @Entity (name = "hotel")
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class Hotel extends User {
 	

@@ -1,16 +1,17 @@
 package br.com.trier.centerhotels.services.impl;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-
 import br.com.trier.centerhotels.models.HotelRoom;
 import br.com.trier.centerhotels.models.Reservation;
 import br.com.trier.centerhotels.models.users.Customer;
 import br.com.trier.centerhotels.models.users.Employee;
 import br.com.trier.centerhotels.repositories.ReservationRepository;
 import br.com.trier.centerhotels.services.ReservationService;
+import br.com.trier.centerhotels.services.exceptions.IntegrityViolation;
 import br.com.trier.centerhotels.utils.DateUtils;
 
 @Service
@@ -23,6 +24,37 @@ public class ReservationServiceImpl extends BaseServiceImpl<Reservation, Integer
     protected JpaRepository<Reservation, Integer> getRepository() {
         return repository;
     }
+    
+    private void validReservationData(Reservation reservation) {
+    	   	ZonedDateTime dateInit = reservation.getDateInit();
+    	    ZonedDateTime dateFin = reservation.getDateFin();
+    	    if(!dateInit.isBefore(dateFin)) {
+    	    	throw new IntegrityViolation("Data inicial deve ser antes que data final");
+    	    }    
+    	    List<Reservation> conflictingReservations = repository.findByDateInitBetween(dateInit, dateFin);
+    	    conflictingReservations.addAll(repository.findByDateFinBetween(dateInit, dateFin));
+    	    conflictingReservations.addAll(repository.findByDateInitLessThanEqualAndDateFinGreaterThanEqual(dateInit, dateFin));
+    	    List<Reservation> conflictingReservationsFilter = conflictingReservations
+												    	    		.stream()
+												    	    		.filter(reservationInst -> reservationInst.getId() != reservation.getId())
+												    	    		.toList();
+    	    if (!conflictingReservationsFilter.isEmpty()) {	    	
+    	        throw new IntegrityViolation("Conflito de datas entre rezervas");	        
+    	    } 
+    	
+    }
+    
+    @Override
+	public Reservation insert(Reservation reservation) {
+    	validReservationData(reservation);
+		return super.insert(reservation);
+	}
+
+	@Override
+	public Reservation update(Reservation reservation) {
+		validReservationData(reservation);
+		return super.update(reservation);
+	}
 
     @Override
     protected Integer getEntityId(Reservation entity) {
