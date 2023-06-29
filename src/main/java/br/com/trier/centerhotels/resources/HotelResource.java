@@ -69,7 +69,7 @@ public class HotelResource extends BaseResource<Hotel, Integer, HotelDTO, HotelS
 	}
 
 	@GetMapping("/desc/{desc}")
-	public ResponseEntity<List<HotelDTO>> findByHotel(@PathVariable String desc) {
+	public ResponseEntity<List<HotelDTO>> findByDesc(@PathVariable String desc) {
 		return ResponseEntity.ok(convertListToDto(service.findByDescriptionContainingIgnoreCase(desc)) );
 	}	
 	

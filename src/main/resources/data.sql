@@ -37,9 +37,9 @@ VALUES
 -- Inserir dados na tabela room_type
 INSERT INTO public.room_type (daily, id, qt, descr)
 VALUES
-    (100.0, 1, 5, 'Single Room'),
-    (150.0, 2, 3, 'Double Room'),
-    (200.0, 3, 2, 'Suite');
+    (100.0, 1, 1, 'Single Room'),
+    (150.0, 2, 2, 'Double Room'),
+    (200.0, 3, 4, 'Suite');
     
 -- Inserir dados na tabela hotel_room
 INSERT INTO public.hotel_room (hotel_id, id, num, type_id)
@@ -49,10 +49,10 @@ VALUES
     (6, 3, 201, 2);
 
 -- Inserir dados na tabela reservation
-INSERT INTO public.reservation (customer_id, employee_id, id, payment, room_id, fin, init)
+INSERT INTO public.reservation (customer_id, employee_id, room_id, fin, init)
 VALUES
-    (1, null, 1, 100.0, 1, '2023-06-28 10:00:00', '2023-06-29 00:00:00'),
-    (4, null, 2, 150.0, 2, '2023-07-01 14:00:00', '2023-07-03 00:00:00'),
-    (7, null, 3, 200.0, 3, '2023-07-05 12:00:00', '2023-07-07 00:00:00');
+    (1, null, 1, '2023-06-28 00:00:00', '2023-06-29 00:00:00'),
+    (4, null, 2, '2023-07-01 00:00:00', '2023-07-03 00:00:00'),
+    (7, null, 3, '2023-07-05 00:00:00', '2023-07-07 00:00:00');
 
 

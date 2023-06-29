@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-
 import br.com.trier.centerhotels.models.users.Hotel;
 import br.com.trier.centerhotels.repositories.HotelRepository;
 import br.com.trier.centerhotels.services.HotelService;
@@ -25,6 +24,18 @@ public class HotelServiceImpl extends BaseServiceImpl<Hotel, Integer> implements
     protected Integer getEntityId(Hotel entity) {
         return entity.getId();
     }
+    
+    @Override
+	public Hotel insert(Hotel hotel) {
+		validateUser(hotel);
+		return super.insert(hotel);
+	}
+
+	@Override
+	public Hotel update(Hotel hotel) {
+		validateUser(hotel);
+		return super.update(hotel);
+	}
 
 	@Override
 	public List<Hotel> findByUserStartsWithIgnoreCase(String user) {

@@ -54,18 +54,18 @@ public class CustomerResource extends BaseResource<Customer, Integer, CustomerDT
 
 	@GetMapping("/cep/{cep}")
 	public ResponseEntity<List<CustomerDTO>> findByCepStartsWith(@PathVariable String cep) {
-		return ResponseEntity.ok(convertListToDto(service.findByCep(cep)));
+		return ResponseEntity.ok(convertListToDto(service.findByCepStartsWith(cep)));
 	}
 
 	@GetMapping("/cpf/{cpf}")
 	public ResponseEntity<List<CustomerDTO>> findByCpfStartsWith(@PathVariable String cpf) {
-		return ResponseEntity.ok(convertListToDto(service.findByCpf(cpf)));
+		return ResponseEntity.ok(convertListToDto(service.findByCpfStartsWith(cpf)));
 	}
 
 	@GetMapping("/cep-name/{cep}/{name}")
 	public ResponseEntity<List<CustomerDTO>> findByCepAndNameStartsWithIgnoreCase(@PathVariable String cep,
 			@PathVariable String name) {
-		return ResponseEntity.ok(convertListToDto(service.findByCepAndNameStartsWithIgnoreCase(cep, name)));
+		return ResponseEntity.ok(convertListToDto(service.findByCepStartsWithAndNameStartsWithIgnoreCase(cep, name)));
 
 	}
 

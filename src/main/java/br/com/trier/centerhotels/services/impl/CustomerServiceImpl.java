@@ -47,15 +47,15 @@ public class CustomerServiceImpl extends BaseServiceImpl<Customer, Integer> impl
 	}
 
 	@Override
-	public List<Customer> findByCpf(String cpf) {
-		return findByTemplate("findByCpf",
+	public List<Customer> findByCpfStartsWith(String cpf) {
+		return findByTemplate("findByCpfStartsWith",
 				"Nenhum cliente/cpf encontrado com:",
 				cpf);
 	}
 
 	@Override
-	public List<Customer> findByCep(String cep) {
-		return findByTemplate("findByCep",
+	public List<Customer> findByCepStartsWith(String cep) {
+		return findByTemplate("findByCepStartsWith",
 				"Nenhum cliente/cep encontrado com:",
 				cep);
 	}
@@ -68,8 +68,8 @@ public class CustomerServiceImpl extends BaseServiceImpl<Customer, Integer> impl
 	}
 
 	@Override
-	public List<Customer> findByCepAndNameStartsWithIgnoreCase(String cep, String name) {
-		return findByTemplateTwo("findByCepAndNameStartsWithIgnoreCase",
+	public List<Customer> findByCepStartsWithAndNameStartsWithIgnoreCase(String cep, String name) {
+		return findByTemplateTwo("findByCepStartsWithAndNameStartsWithIgnoreCase",
 				"Nenhum cliente/cep e cliente/name encontrado com:",
 				cep,
 				name);

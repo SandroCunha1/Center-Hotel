@@ -1,6 +1,10 @@
 package br.com.trier.centerhotels.resources;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.trier.centerhotels.models.HotelRoom;
@@ -42,6 +46,27 @@ public class HotelRoomResource extends BaseResource<HotelRoom, Integer, HotelRoo
 	protected HotelRoomDTO convertEntityToDto(HotelRoom entity) {
 		return entity.toDto();
 	}
+	
+	@GetMapping("/hotel/{hotelId}")
+	public ResponseEntity<List<HotelRoomDTO>> findByHotel(@PathVariable Integer hotelId) {
+		return ResponseEntity.ok(convertListToDto(service.findByHotel(hotelService.findById(hotelId))) );
+	}	
+	
+	@GetMapping("/type/{typeId}")
+	public ResponseEntity<List<HotelRoomDTO>> findByType(@PathVariable Integer typeId) {
+		return ResponseEntity.ok(convertListToDto(service.findByType(typeService.findById(typeId))) );
+	}	
+	
+	@GetMapping("/hotel/{hotelId}/num/{num}")
+	public ResponseEntity<List<HotelRoomDTO>> findByHotelAndNum(@PathVariable Integer hotelId,@PathVariable Integer num) {
+		return ResponseEntity.ok(convertListToDto(service.findByHotelAndNum(hotelService.findById(hotelId), num)) );
+	}
+	
+	@GetMapping("/hotel/{hotelId}/type/{typeId}")
+	public ResponseEntity<List<HotelRoomDTO>> findByHotelAndType(@PathVariable Integer hotelId, @PathVariable Integer typeId) {
+		return ResponseEntity.ok(convertListToDto(service.findByHotelAndType(hotelService.findById(hotelId),typeService.findById(typeId))) );
+	}
+
 
 
 

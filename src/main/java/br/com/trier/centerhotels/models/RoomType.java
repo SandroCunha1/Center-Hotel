@@ -1,6 +1,5 @@
 package br.com.trier.centerhotels.models;
 
-import br.com.trier.centerhotels.models.dto.RoomTypeDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,14 +33,6 @@ public class RoomType {
 	@Column (name = "daily")
 	private Float daily;
 	
-	public RoomType(RoomTypeDTO dto) {
-        this.id = dto.getId();
-        this.description = dto.getDescription();
-        this.qt = dto.getQuantity();
-        this.daily = dto.getDailyRate();
-    }
-
-    public RoomTypeDTO toDTO() {
-        return new RoomTypeDTO(id, description, qt, daily);
-    }
+	
+	
 }

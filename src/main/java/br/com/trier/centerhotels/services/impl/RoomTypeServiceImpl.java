@@ -27,20 +27,30 @@ public class RoomTypeServiceImpl extends BaseServiceImpl<RoomType, Integer> impl
 
 	@Override
 	public List<RoomType> findByDailyOrderByQt(Float daily) {
-		// TODO Auto-generated method stub
-		return null;
+		return findByTemplate("findByDailyOrderByQt",
+				"Nenhuma quarto com valor diário de :",
+				daily);
 	}
 
 	@Override
 	public List<RoomType> findByDescriptionContainingIgnoreCaseOrderByDaily(String desc) {
-		// TODO Auto-generated method stub
-		return null;
+		return findByTemplate("findByDescriptionContainingIgnoreCaseOrderByDaily",
+				"Nenhuma tipo com descrição contendo :",
+				desc);
 	}
 
 	@Override
 	public List<RoomType> findByQtOrderByDaily(Integer qt) {
-		// TODO Auto-generated method stub
-		return null;
+		return findByTemplate("findByQtOrderByDaily",
+				"Nenhuma quarto com quantidade de pessoas igual á :",
+				qt);
+	}
+
+	@Override
+	public List<RoomType> findByDailyBetweenOrderByQt(Float dailyMin, Float dailyMax) {
+		return findByTemplateTwo("findByDailyBetweenOrderByQt",
+				"Nenhuma quarto com valor diário entre :",
+				dailyMin, dailyMax);
 	}
 
 	
