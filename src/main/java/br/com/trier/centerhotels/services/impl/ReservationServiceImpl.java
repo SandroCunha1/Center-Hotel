@@ -107,4 +107,11 @@ public class ReservationServiceImpl extends BaseServiceImpl<Reservation, Integer
 				"Nenhuma reserva com data final entre :",
 				DateUtils.dateBrToZoneDate(date), DateUtils.dateBrToZoneDate(date2));
 	}
+
+	@Override
+	public List<Reservation> findByDateInitGreaterThanEqualAndDateFinLessThanEqual(String date, String date2) {
+		return findByTemplateTwo("findByDateInitGreaterThanEqualAndDateFinLessThanEqual",
+				"Nenhuma reserva com data entre :",
+				DateUtils.dateBrToZoneDate(date), DateUtils.dateBrToZoneDate(date2));
+	}
 }

@@ -92,6 +92,12 @@ public class ReservationResource extends BaseResource<Reservation, Integer, Rese
 		return ResponseEntity.ok(convertListToDto(service.findByDateInitAndDateFin(init, fin)) );
 	}
 	
+	@Secured({"ROLE_USER"})
+	@GetMapping("/date/{init}/{fin}")
+	public ResponseEntity<List<ReservationDTO>> findByDateInitGreaterThanEqualAndDateFinLessThanEqual(@PathVariable String init, @PathVariable String fin) {
+		return ResponseEntity.ok(convertListToDto(service.findByDateInitGreaterThanEqualAndDateFinLessThanEqual(init, fin)) );
+	}
+	
 	
 
 }

@@ -1,7 +1,6 @@
 package br.com.trier.centerhotels.services;
 
 import java.util.List;
-
 import br.com.trier.centerhotels.models.HotelRoom;
 import br.com.trier.centerhotels.models.Reservation;
 import br.com.trier.centerhotels.models.users.Customer;
@@ -14,4 +13,5 @@ public interface ReservationService extends BaseCrudService<Reservation> {
 	List<Reservation> findByDateInitAndDateFin(String dateInit, String dateFin);
 	List<Reservation> findByDateInitBetween(String date, String date2);
 	List<Reservation> findByDateFinBetween(String date, String date2);
+	List<Reservation> findByDateInitGreaterThanEqualAndDateFinLessThanEqual(String date, String date2);
 }

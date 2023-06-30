@@ -165,5 +165,14 @@ public class ReservationServiceTest extends BaseTests {
 		service.findByDateInitAndDateFin("11-07-2003 10:00","12-07-2003 10:00").size());
 		assertEquals("Nenhuma reserva com data inicial e data final em : 2003-07-11T00:00-03:00[America/Sao_Paulo] e 2003-07-12T00:00-03:00[America/Sao_Paulo]", ex.getMessage());
 	}
+	
+	@Test
+	@DisplayName("Procura por data entre")
+	void searchReservationDateBetween() {	
+		assertEquals(3, service.findByDateInitGreaterThanEqualAndDateFinLessThanEqual("20-04-2000 00:00", "10-07-2024 01:00").size());
+		var ex = assertThrows(ObjectNotFound.class, () ->
+		service.findByDateInitGreaterThanEqualAndDateFinLessThanEqual("11-07-2003 10:00","12-07-2003 10:00").size());
+		assertEquals("Nenhuma reserva com data entre : 2003-07-11T00:00-03:00[America/Sao_Paulo] e 2003-07-12T00:00-03:00[America/Sao_Paulo]", ex.getMessage());
+	}
 
 }
