@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,31 +38,37 @@ public class CustomerResource extends BaseResource<Customer, Integer, CustomerDT
 		return entity.toDTO();
 	}
 
+	@Secured({"ROLE_USER"})
 	@GetMapping("/user/{user}")
 	public ResponseEntity<List<CustomerDTO>> findByUserStartsWithIgnoreCase(@PathVariable String user) {
 		return ResponseEntity.ok(convertListToDto(service.findByUserStartsWithIgnoreCase(user)));
 	}
 
+	@Secured({"ROLE_USER"})
 	@GetMapping("/name/{name}")
 	public ResponseEntity<List<CustomerDTO>> findByNameStartsWithIgnoreCase(@PathVariable String name) {
 		return ResponseEntity.ok(convertListToDto(service.findByNameStartsWithIgnoreCase(name)));
 	}
-
+	
+	@Secured({"ROLE_USER"})
 	@GetMapping("/email/{email}")
 	public ResponseEntity<List<CustomerDTO>> findByEmailStartsWithIgnoreCase(@PathVariable String email) {
 		return ResponseEntity.ok(convertListToDto(service.findByEmailStartsWithIgnoreCase(email)));
 	}
 
+	@Secured({"ROLE_USER"})
 	@GetMapping("/cep/{cep}")
 	public ResponseEntity<List<CustomerDTO>> findByCepStartsWith(@PathVariable String cep) {
 		return ResponseEntity.ok(convertListToDto(service.findByCepStartsWith(cep)));
 	}
 
+	@Secured({"ROLE_USER"})
 	@GetMapping("/cpf/{cpf}")
 	public ResponseEntity<List<CustomerDTO>> findByCpfStartsWith(@PathVariable String cpf) {
 		return ResponseEntity.ok(convertListToDto(service.findByCpfStartsWith(cpf)));
 	}
 
+	@Secured({"ROLE_USER"})
 	@GetMapping("/cep-name/{cep}/{name}")
 	public ResponseEntity<List<CustomerDTO>> findByCepAndNameStartsWithIgnoreCase(@PathVariable String cep,
 			@PathVariable String name) {

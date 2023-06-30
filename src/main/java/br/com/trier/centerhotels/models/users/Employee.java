@@ -31,17 +31,17 @@ public class Employee extends User {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Hotel hotel;
 	
-	public Employee(Integer id, String name, String email, String cep, Integer phone, String user, String password, String cpf, Hotel hotel) {
-		super(id, name, email, cep, phone, user, password);
+	public Employee(Integer id, String name, String email, String cep, Integer phone, String user, String password, String cpf, Hotel hotel, String roles) {
+		super(id, name, email, cep, phone, user, password, roles);
 		this.cpf = cpf;
 		this.hotel = hotel;
 	}
 	
 	public Employee(EmployeeDTO dto, Hotel hotel) {
-		this(dto.getId(), dto.getName(), dto.getEmail(), dto.getCep(), dto.getPhone(), dto.getUser(), dto.getPassword(), dto.getCpf(), hotel);
+		this(dto.getId(), dto.getName(), dto.getEmail(), dto.getCep(), dto.getPhone(), dto.getUser(), dto.getPassword(), dto.getCpf(), hotel, dto.getRoles());
 	}
 	
 	public EmployeeDTO toDTO() {
-		return new EmployeeDTO(getId(), getCep(), getName(), getEmail(), getUser(), getPassword(), getPhone(), getCpf(), getHotel().getId(), getHotel().getName(), getHotel().getCnpj());
+		return new EmployeeDTO(getId(), getCep(), getName(), getEmail(), getUser(), getPassword(), getPhone(), getCpf(), getHotel().getId(), getHotel().getName(), getHotel().getCnpj(), getRoles());
 	}
 }

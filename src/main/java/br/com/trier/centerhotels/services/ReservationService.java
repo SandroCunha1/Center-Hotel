@@ -11,8 +11,6 @@ public interface ReservationService extends BaseCrudService<Reservation> {
 	List<Reservation> findByCustomer(Customer customer);
 	List<Reservation> findByEmployee(Employee employee);
 	List<Reservation> findByRoom(HotelRoom room);
-	List<Reservation> findByDateInit(String date);
-	List<Reservation> findByDateFin(String date);
 	List<Reservation> findByDateInitAndDateFin(String dateInit, String dateFin);
 	List<Reservation> findByDateInitBetween(String date, String date2);
 	List<Reservation> findByDateFinBetween(String date, String date2);

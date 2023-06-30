@@ -53,4 +53,8 @@ public class User {
 	@NotNull
 	@NotBlank
 	private String password;
+	
+	@Column (name = "permission")
+	@NotNull
+	private String roles;
 }

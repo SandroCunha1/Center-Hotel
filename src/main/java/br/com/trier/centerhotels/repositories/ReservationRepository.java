@@ -14,8 +14,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	List<Reservation> findByCustomer(Customer customer);
 	List<Reservation> findByEmployee(Employee employee);
 	List<Reservation> findByRoom(HotelRoom room);
-	List<Reservation> findByDateInit(ZonedDateTime date);
-	List<Reservation> findByDateFin(ZonedDateTime date);
 	List<Reservation> findByDateInitAndDateFin(ZonedDateTime dateInit, ZonedDateTime dateFin);
 	List<Reservation> findByDateInitBetween(ZonedDateTime date, ZonedDateTime date2);
 	List<Reservation> findByDateFinBetween(ZonedDateTime date, ZonedDateTime date2);

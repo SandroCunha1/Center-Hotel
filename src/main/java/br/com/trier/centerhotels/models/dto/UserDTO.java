@@ -18,6 +18,7 @@ public abstract class UserDTO  {
 	private String user;
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
+	private String roles;
 	private Integer phone;
 
 }

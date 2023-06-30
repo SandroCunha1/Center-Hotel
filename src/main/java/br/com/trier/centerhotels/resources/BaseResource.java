@@ -3,6 +3,7 @@ package br.com.trier.centerhotels.resources;
 
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,22 +20,26 @@ public abstract class BaseResource<T, ID,D ,  S extends BaseServiceImpl<T, ID>> 
         this.service = service;
     }
 
+    @Secured({"ROLE_ADMIN"})
     @PostMapping
     public ResponseEntity<D> insert(@RequestBody D entityDTO) {
     	T entity = convertDtoToEntity(entityDTO);
         return ResponseEntity.ok(convertEntityToDto(service.insert(entity)));
     }
 
+    @Secured({"ROLE_USER"})
     @GetMapping("/{id}")
     public ResponseEntity<D> findById(@PathVariable ID id) {
         return ResponseEntity.ok(convertEntityToDto(service.findById(id)));
     }
 
+    @Secured({"ROLE_USER"})
     @GetMapping
     public ResponseEntity<List<D>> listAll() {
         return ResponseEntity.ok(convertListToDto(service.listAll()));
     }
 
+    @Secured({"ROLE_ADMIN"})
     @PutMapping("/{id}")
     public ResponseEntity<D> update(@PathVariable ID id, @RequestBody D entityDTO) {
     	T entity = convertDtoToEntity(entityDTO);
@@ -42,6 +47,7 @@ public abstract class BaseResource<T, ID,D ,  S extends BaseServiceImpl<T, ID>> 
         return ResponseEntity.ok(convertEntityToDto(service.update(entity)));
     }
 
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable ID id) {
         service.delete(id);

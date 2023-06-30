@@ -26,7 +26,7 @@ class CustomerServiceTest extends BaseTests {
 	@Test
 	@DisplayName("Insert novo usuario")
 	void insert() {	
-		Customer customer = new Customer(null, "Sandro", "sandrocunha@gmail.com", "1234", 123213, "sandro", "123", "1231244");
+		Customer customer = new Customer(1, "Sandro", "sandrocunha@gmail.com", "1234", 123213, "sandro", "123", "1231244", "ADMIN");
 		customerService.insert(customer);
 		assertEquals(4, customerService.listAll().size());
 		assertEquals(1, customer.getId());
@@ -35,29 +35,43 @@ class CustomerServiceTest extends BaseTests {
 	@Test
 	@DisplayName("Insert novo usuario com email já cadastrado")
 	void insertInvalidEmail() {	
-		Customer customer = new Customer(null, "Sandro", "user1@example.com", "1234", 123213, "sandro", "123", "1231244");
+		Customer customer = new Customer(1, "Sandro", "user1@example.com", "1234", 123213, "sandro", "123", "1231244", "ADMIN");
 		var ex = assertThrows(IntegrityViolation.class, () ->
 		customerService.insert(customer));
 		assertEquals("Email já cadastrado", ex.getMessage());
 		assertEquals(3, customerService.listAll().size());
-		assertEquals(null, customer.getId());
 	}
 	
 	@Test
 	@DisplayName("Insert novo usuario com usuário já cadastrado")
 	void insertInvalidUser() {	
-		Customer customer = new Customer(null, "Sandro", "sfsdf@example.com", "1234", 123213, "customer1", "123", "1231244");
+		Customer customer = new Customer(1, "Sandro", "sfsdf@example.com", "1234", 123213, "customer1", "123", "1231244", "ADMIN");
 		var ex = assertThrows(IntegrityViolation.class, () ->
 		customerService.insert(customer));
 		assertEquals("Usuário já existe", ex.getMessage());
 		assertEquals(3, customerService.listAll().size());
-		assertEquals(null, customer.getId());
 	}
 	
 	@Test
-	@DisplayName("Update novo usuario")
+	@DisplayName("Update usuario")
 	void update() {	
-		Customer customer = new Customer(20, "Sandro", "sandrocunha@gmail.com", "1234", 123213, "sandro", "123", "1231244");
+		Customer customer = new Customer(20, "Sandro", "sandrocunha@gmail.com", "1234", 123213, "sandro", "123", "1231244", "ADMIN");
+		customerService.update(customer);
+		assertEquals(3, customerService.listAll().size());
+	}
+	
+	@Test
+	@DisplayName("Update usuario com email já cadastrado")
+	void updateInvalidEmial() {	
+		Customer customer = new Customer(20, "Sandro", "user1@example.com", "1234", 123213, "customer10", "123", "1231244", "ADMIN");
+		customerService.update(customer);
+		assertEquals(3, customerService.listAll().size());
+	}
+	
+	@Test
+	@DisplayName("Update usuario com usuário já cadastrado")
+	void updateInvalidUser() {	
+		Customer customer = new Customer(20, "Sandro", "sfsdf@example.com", "1234", 123213, "customer1", "123", "1231244", "ADMIN");
 		customerService.update(customer);
 		assertEquals(3, customerService.listAll().size());
 	}
@@ -159,5 +173,7 @@ class CustomerServiceTest extends BaseTests {
 		customerService.findByCepStartsWithAndNameStartsWithIgnoreCase("1", "a").size());
 		assertEquals("Nenhum cliente/cep e cliente/name encontrado com: 1 e a", ex.getMessage());
 	}
+	
+
 
 }

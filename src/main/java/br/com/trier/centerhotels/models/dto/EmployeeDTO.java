@@ -12,8 +12,8 @@ public class EmployeeDTO extends UserDTO {
 	private String hotelName;
 	private String hotelCnpj;
 	
-	public EmployeeDTO(Integer id, String cep, String name, String email, String user, String password, Integer phone, String cpf, Integer hotelId, String hotelName, String hotelCnpj) {
-		super(id, cep, name, email, user, password, phone);
+	public EmployeeDTO(Integer id, String cep, String name, String email, String user, String password, Integer phone, String cpf, Integer hotelId, String hotelName, String hotelCnpj, String roles) {
+		super(id, cep, name, email, user, password, roles, phone);
 		this.cpf = cpf;
 		this.hotelId = hotelId;
 		this.hotelCnpj = hotelCnpj;

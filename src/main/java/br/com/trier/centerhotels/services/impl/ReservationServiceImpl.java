@@ -20,6 +20,7 @@ public class ReservationServiceImpl extends BaseServiceImpl<Reservation, Integer
     @Autowired
     private ReservationRepository repository;
 
+    
     @Override
     protected JpaRepository<Reservation, Integer> getRepository() {
         return repository;
@@ -30,16 +31,18 @@ public class ReservationServiceImpl extends BaseServiceImpl<Reservation, Integer
     	    ZonedDateTime dateFin = reservation.getDateFin();
     	    if(!dateInit.isBefore(dateFin)) {
     	    	throw new IntegrityViolation("Data inicial deve ser antes que data final");
-    	    }    
+    	    }
+    	    
     	    List<Reservation> conflictingReservations = repository.findByDateInitBetween(dateInit, dateFin);
     	    conflictingReservations.addAll(repository.findByDateFinBetween(dateInit, dateFin));
     	    conflictingReservations.addAll(repository.findByDateInitLessThanEqualAndDateFinGreaterThanEqual(dateInit, dateFin));
     	    List<Reservation> conflictingReservationsFilter = conflictingReservations
 												    	    		.stream()
-												    	    		.filter(reservationInst -> reservationInst.getId() != reservation.getId())
+												    	    		.filter(reservationInst -> reservationInst.getId() != reservation.getId() 
+												    	    		&& reservation.getRoom().getId() == reservationInst.getRoom().getId())
 												    	    		.toList();
     	    if (!conflictingReservationsFilter.isEmpty()) {	    	
-    	        throw new IntegrityViolation("Conflito de datas entre rezervas");	        
+    	        throw new IntegrityViolation("Conflito de datas entre reservas");	        
     	    } 
     	
     }
@@ -65,64 +68,43 @@ public class ReservationServiceImpl extends BaseServiceImpl<Reservation, Integer
 	@Override
 	public List<Reservation> findByCustomer(Customer customer) {
 		return findByTemplate("findByCustomer",
-				"Nenhuma rezerva registrado no cliente :",
+				"Nenhuma reserva registrado no cliente :",
 				customer);
 	}
 
 	@Override
 	public List<Reservation> findByEmployee(Employee employee) {
 		return findByTemplate("findByEmployee",
-				"Nenhuma rezerva registrada pelo funcionario :",
+				"Nenhuma reserva registrada pelo funcionário :",
 				employee);
 	}
 
 	@Override
 	public List<Reservation> findByRoom(HotelRoom room) {
 		return findByTemplate("findByRoom",
-				"Nenhuma rezerva registrada no quarto :",
+				"Nenhuma reserva registrada no quarto :",
 				room);
 	}
 
-	@Override
-	public List<Reservation> findByDateInit(String date) {
-		DateUtils.dateBrToZoneDate(date);
-		return findByTemplate("findByDateInit",
-				"Nenhuma rezerva com data inicial :",
-				date);
-	}
-
-	@Override
-	public List<Reservation> findByDateFin(String date) {
-		DateUtils.dateBrToZoneDate(date);
-		return findByTemplate("findByDateFin",
-				"Nenhuma rezerva com data final :",
-				date);
-	}
 
 	@Override
 	public List<Reservation> findByDateInitAndDateFin(String dateInit, String dateFin) {
-		DateUtils.dateBrToZoneDate(dateInit);
-		DateUtils.dateBrToZoneDate(dateFin);
 		return findByTemplateTwo("findByDateInitAndDateFin",
-				"Nenhuma rezerva com data inicial e data final em :",
-				dateInit, dateFin);
+				"Nenhuma reserva com data inicial e data final em :",
+				DateUtils.dateBrToZoneDate(dateInit), DateUtils.dateBrToZoneDate(dateFin));
 	}
 
 	@Override
 	public List<Reservation> findByDateInitBetween(String date, String date2) {
-		DateUtils.dateBrToZoneDate(date);
-		DateUtils.dateBrToZoneDate(date2);
 		return findByTemplateTwo("findByDateInitBetween",
-				"Nenhuma rezerva com data inicial entre :",
-				date, date2);
+				"Nenhuma reserva com data inicial entre :",
+				DateUtils.dateBrToZoneDate(date), DateUtils.dateBrToZoneDate(date2));
 	}
 
 	@Override
-	public List<Reservation> findByDateFinBetween(String date, String date2) {
-		DateUtils.dateBrToZoneDate(date);
-		DateUtils.dateBrToZoneDate(date2);
+	public List<Reservation> findByDateFinBetween(String date, String date2) {	
 		return findByTemplateTwo("findByDateFinBetween",
-				"Nenhuma rezerva com data final entre :",
-				date, date2);
+				"Nenhuma reserva com data final entre :",
+				DateUtils.dateBrToZoneDate(date), DateUtils.dateBrToZoneDate(date2));
 	}
 }

@@ -21,7 +21,7 @@ public abstract class BaseServiceImpl<T, ID> {
 
 	
 	protected void validateUser(User entity) {
-		User existingUser = userRepository.findByEmail(entity.getEmail());
+		User existingUser = userRepository.findByEmail(entity.getEmail()).orElse(null);
 		if (existingUser != null && !existingUser.getId().equals(entity.getId())) {
 			throw new IntegrityViolation("Email já cadastrado");
 		}
@@ -36,7 +36,7 @@ public abstract class BaseServiceImpl<T, ID> {
 		try {
 			Method method = getRepository().getClass().getMethod(attribute, value.getClass());
 			List<T> resultList = (List<T>) method.invoke(getRepository(), value);
-			if (resultList != null && !resultList.isEmpty()) {
+			if (!resultList.isEmpty()) {
 				return resultList;
 			}
 		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
@@ -51,7 +51,7 @@ public abstract class BaseServiceImpl<T, ID> {
 		try {
 			Method method = getRepository().getClass().getMethod(attribute, value.getClass(), value2.getClass());
 			List<T> resultList = (List<T>) method.invoke(getRepository(), value, value2);
-			if (resultList != null && !resultList.isEmpty()) {
+			if (!resultList.isEmpty()) {
 				return resultList;
 			}
 		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {

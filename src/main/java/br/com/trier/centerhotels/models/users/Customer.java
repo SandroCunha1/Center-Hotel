@@ -20,17 +20,17 @@ public class Customer extends User {
 	@NotBlank
 	private String cpf;
 	
-	public Customer(Integer id, String name, String email, String cep, Integer phone, String user, String password, String cpf) {
-		super(id, name, email, cep, phone, user, password);
+	public Customer(Integer id, String name, String email, String cep, Integer phone, String user, String password, String cpf, String roles) {
+		super(id, name, email, cep, phone, user, password, roles);
 		this.cpf = cpf;
 	}
 	
 	public Customer(CustomerDTO dto) {
-		this(dto.getId(), dto.getName(), dto.getEmail(), dto.getCep(), dto.getPhone(), dto.getUser(), dto.getPassword(), dto.getCpf());
+		this(dto.getId(), dto.getName(), dto.getEmail(), dto.getCep(), dto.getPhone(), dto.getUser(), dto.getPassword(), dto.getCpf(), dto.getRoles());
 	}
 	
 	public CustomerDTO toDTO() {
-		return new CustomerDTO(getId(), getCep(), getName(), getEmail(), getUser(), getPassword(), getPhone(), getCpf());
+		return new CustomerDTO(getId(), getCep(), getName(), getEmail(), getUser(), getPassword(), getPhone(), getCpf(), getRoles());
 	}
 
 }
